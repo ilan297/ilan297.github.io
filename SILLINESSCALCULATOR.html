@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILLINESS CALCULATOR!!!</title>
+</head>
+<body>
+    <button id="SILLY-ME">SHOW ME HOW SILLY I AM</button><br />
+<p id="status"></p>
+<a id="map-link" target="_blank"></a>
+<script>
+    function SILLYCALCULATE() {
+  const status = document.querySelector("#status");
+  const mapLink = document.querySelector("#map-link");
+
+  mapLink.href = "";
+  mapLink.textContent = "";
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    status.textContent = "";
+    mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+    mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+  }
+
+  function error() {
+    status.textContent = "UNABLE TO GET SILLINESS";
+  }
+
+  if (!navigator.geolocation) {
+    status.textContent = "BEING SILLY IS NOT SUPPORTED BY YOUR BROWSER";
+  } else {
+    status.textContent = "CALCULATING…";
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+}
+
+document.querySelector("#SILLY-ME").addEventListener("click", SILLYCALCULATE);
+</script>
+</body>
+</html>
